@@ -114,7 +114,7 @@ export class FetchCustomer extends Component {
                                 <td>{member.id}</td>
                                 <td>{member.name}</td>
                                 <td>{member.address}</td>
-                                <td><a onClick={() => this.handleOpenModal(member)}>Edit</a>|<a>Delete</a></td>
+                                <td><a onClick={() => this.handleOpenModal(member)}><button class="ui button">Edit</button></a><a><button class="ui button">Delete</button></a></td>
                             </tr>)
                     }
                 </tbody>

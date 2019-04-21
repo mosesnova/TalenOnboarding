@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import ReactModal from 'react-modal';
+import { Link } from "react-router-dom";
 
 
 export class FetchCustomer extends Component {
@@ -99,6 +100,7 @@ export class FetchCustomer extends Component {
 
     render() {
         return (<div><h1>Fetch Customer</h1>
+            <Link to="/AddCustomer">AddCustomer</Link>
             <table>
                 <thead>
                     <tr>
@@ -110,7 +112,7 @@ export class FetchCustomer extends Component {
                 <tbody>
                     {
                         this.state.customer.map(member =>
-                            <tr key={member.id} >
+                            <tr key={member.id}>
                                 <td>{member.id}</td>
                                 <td>{member.name}</td>
                                 <td>{member.address}</td>

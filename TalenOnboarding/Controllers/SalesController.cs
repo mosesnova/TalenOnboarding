@@ -72,6 +72,7 @@ namespace TalenOnboarding.Controllers
             return sales;
         }
 
+
         // PUT: api/Sales/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSales(int id, SalesVm salesvm)

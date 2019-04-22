@@ -21,6 +21,7 @@ export class FetchCustomer extends Component {
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.logChange = this.logChange.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
     componentDidMount() {
         let self = this;
@@ -47,15 +48,17 @@ export class FetchCustomer extends Component {
     }
 
 
-    handleDeleteOpenModal() {
+    handleDeleteOpenModal(member) {
         this.setState({
-            
+            name: member.name,
+            address: member.address,
+            id:member.id,
             showDeleteModal: true
         });
     }
 
     handleDeleteCloseModal() {
-        this.setState({ showDelteModal: false });
+        this.setState({ showDeleteModal: false });
     }
 
     handleOpenModal(member) {
@@ -112,6 +115,39 @@ export class FetchCustomer extends Component {
 
     }
 
+    handleDelete(event) {
+        //alert("Edit");
+        event.preventDefault();
+        var data = {
+            name: this.state.name,
+            address: this.state.address,
+            id: this.state.id
+        };
+
+        //let that = this;
+
+        fetch('api/Customers/' + data.id, {
+
+            method: 'DELETE',
+
+            headers: {
+
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify(data)
+
+        }).then(function (response) {
+            if (response.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            return response.json();
+        }).then(function (data) {
+            console.log("Success", data);
+        });
+
+    }
+
     render() {
         return (<div><h1>Fetch Customer</h1>
             <Link to="/AddCustomer">AddCustomer</Link>
@@ -130,7 +166,7 @@ export class FetchCustomer extends Component {
                                 <td>{member.id}</td>
                                 <td>{member.name}</td>
                                 <td>{member.address}</td>
-                                <td><a onClick={() => this.handleOpenModal(member)}><button class="ui button">Edit</button></a><a onClick={() => this.handleDeleteOpenModal()}><button class="ui button">Delete</button></a></td>
+                                <td><a onClick={() => this.handleOpenModal(member)}><button class="ui button">Edit</button></a><a onClick={() => this.handleDeleteOpenModal(member)}><button class="ui button">Delete</button></a></td>
                             </tr>)
                     }
                 </tbody>
@@ -152,7 +188,8 @@ export class FetchCustomer extends Component {
                     isOpen={this.state.showDeleteModal}
                     contentLabel="Minimal Modal Example"
                     ariaHideApp={false}
-                > <form>
+                > <form onSubmit={this.handleDelete} method="DELETE">
+                        <button>Delete</button>
                         <button onClick={this.handleDeleteCloseModal}>Close Modal</button>
                     </form>
                 </ReactModal>

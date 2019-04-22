@@ -11,9 +11,12 @@ export class FetchCustomer extends Component {
             id: '',
             name: '',
             address: '',
-            showModal: false
+            showModal: false,
+            showDeleteModal:false
             
         };
+        this.handleDeleteOpenModal = this.handleDeleteOpenModal.bind(this);
+        this.handleDeleteCloseModal = this.handleDeleteCloseModal.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.logChange = this.logChange.bind(this);
@@ -42,7 +45,18 @@ export class FetchCustomer extends Component {
     });
 
     }
-    
+
+
+    handleDeleteOpenModal() {
+        this.setState({
+            
+            showDeleteModal: true
+        });
+    }
+
+    handleDeleteCloseModal() {
+        this.setState({ showDelteModal: false });
+    }
 
     handleOpenModal(member) {
         this.setState({
@@ -116,7 +130,7 @@ export class FetchCustomer extends Component {
                                 <td>{member.id}</td>
                                 <td>{member.name}</td>
                                 <td>{member.address}</td>
-                                <td><a onClick={() => this.handleOpenModal(member)}><button class="ui button">Edit</button></a><a><button class="ui button">Delete</button></a></td>
+                                <td><a onClick={() => this.handleOpenModal(member)}><button class="ui button">Edit</button></a><a onClick={() => this.handleDeleteOpenModal()}><button class="ui button">Delete</button></a></td>
                             </tr>)
                     }
                 </tbody>
@@ -132,6 +146,14 @@ export class FetchCustomer extends Component {
                         <input onChange={this.logChange} value={this.state.address} name='address' />
                         <button>Submit</button>
                         <button onClick={this.handleCloseModal}>Close Modal</button>
+                    </form>
+                </ReactModal>
+                <ReactModal
+                    isOpen={this.state.showDeleteModal}
+                    contentLabel="Minimal Modal Example"
+                    ariaHideApp={false}
+                > <form>
+                        <button onClick={this.handleDeleteCloseModal}>Close Modal</button>
                     </form>
                 </ReactModal>
             </table>

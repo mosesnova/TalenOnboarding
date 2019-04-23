@@ -29,6 +29,9 @@ export class FetchSales extends Component {
         this.logChange = this.logChange.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.onChangeFunc = this.onChangeFunc.bind(this);
+        this.onChangeCustomerFunc = this.onChangeCustomerFunc.bind(this);
+        this.onChangeStoreFunc = this.onChangeStoreFunc.bind(this);
+
     }
     componentDidMount() {
         let self = this;
@@ -180,6 +183,17 @@ export class FetchSales extends Component {
         });
     }
 
+    onChangeCustomerFunc(optionSelected) {
+        this.setState({
+            customerName: optionSelected.value
+        });
+    }
+    onChangeStoreFunc(optionSelected) {
+        this.setState({
+            storeName: optionSelected.value
+        });
+    }
+
     handleEdit(event) {
         //alert("Edit");
         event.preventDefault();
@@ -266,10 +280,10 @@ export class FetchSales extends Component {
                         <Select onChange={this.onChangeFunc} defaultValue={{ label: this.state.productName, value: this.state.productName }} options={this.state.productArray} />
                        
                         <label>Customer Name</label>
-                        <Select defaultValue={{ label: this.state.customerName, value: this.state.customerName }} options={this.state.customerArray} />
+                        <Select onChange={this.onChangeCustomerFunc} defaultValue={{ label: this.state.customerName, value: this.state.customerName }} options={this.state.customerArray} />
                        
                         <label>Store Name</label>
-                        <Select defaultValue={{ label: this.state.storeName, value: this.state.storeName }} options={this.state.storeArray} />
+                        <Select onChange={this.onChangeStoreFunc} defaultValue={{ label: this.state.storeName, value: this.state.storeName }} options={this.state.storeArray} />
                        
                         <label>Date Sold</label>
                         <input onChange={this.logChange} value={this.state.dateSold} name='dateSold' /><br />
